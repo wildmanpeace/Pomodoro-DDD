@@ -10,7 +10,6 @@ public class Break : ChildCommand
     public Break(ISettings settings, ITaskWorkerMethod worker) : base(settings)
     {
         Worker = worker;
-        
     }
 
     public override Command Create()

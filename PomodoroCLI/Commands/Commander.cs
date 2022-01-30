@@ -28,7 +28,8 @@ public class Commander
             },
             
             new SettingCommand(Settings).Create(),
-            new StartCommand(Settings, Worker).Create()
+            new StartCommand(Settings, Worker).Create(),
+            new Break(Settings, Worker).Create()
         };
         
         command.SetHandler<int, int, bool, int>(( timerLength, breakTimer, longBreak, longBreakTimer) =>
