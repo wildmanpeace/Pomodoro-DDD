@@ -16,17 +16,21 @@ internal class StartCommand : ChildCommand
     {
         var command = new Command("start")
         {
-            Description = "Start with your settings"
+            Description = "Start a pomodoro with your settings"
         };
         
         command.SetHandler(StartWorkerMethod);
-        
-
         return command;
     }
 
-    private void StartWorkerMethod()
+    private async void StartWorkerMethod()
     {
         Worker.Start();
+        Console.BackgroundColor = ConsoleColor.Cyan;
+        await WorkerRun.WaitUntil(WorkerEnd, CancellationToken.None);
+        
+        ConsoleExtension.ConsoleColorPulse(ConsoleColor.Gray, ConsoleColor.Cyan);
     }
+
+    private bool WorkerEnd() => Worker.EndDate == DateTime.Now;
 }

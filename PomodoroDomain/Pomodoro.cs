@@ -86,6 +86,12 @@ public class Pomodoro : ITaskWorkerMethod, ISettings
         _BreakTimeEnd = SetEndBreakTime();
     }
 
+    public void BreakStart(int timerLength)
+    {
+        _BreakTimeStart = DateTime.Now;
+        _BreakTimeEnd = _BreakTimeStart.AddMinutes(timerLength);
+    }
+
     public void BreakEnd()
     {
         _BreakTimeEnd = DateTime.Now;

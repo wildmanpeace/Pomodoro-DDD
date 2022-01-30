@@ -26,22 +26,6 @@ public class Commander
                 IsRequired = false,
                 
             },
-            new Option<int>("--breakTimer", getDefaultValue:() => Settings.ShortBreak)
-            {
-                Description = $"Set how long the break time will be.  Set to {Settings.ShortBreak}",
-                IsRequired = false
-            },
-            new Option<bool>("--longBreak", getDefaultValue:() => false)
-            {
-                Description = "Set if this is a long break.  Long breaks should happen after your 4th pomodoro",
-                IsRequired = false,
-                
-            },
-            new Option<int>("--longBreakTimer", getDefaultValue: () => Settings.LongBreak)
-            {
-                Description = $"Set how long the break time will be.  Set to {Settings.LongBreak}",
-                IsRequired = false,
-            },
             
             new SettingCommand(Settings).Create(),
             new StartCommand(Settings, Worker).Create()
@@ -55,10 +39,19 @@ public class Commander
 
             Worker.IsLongBreak = longBreak;
             
-            Worker.Start();
+            StartWorkerMethod();
 
         }, command.Children.OfType<IValueDescriptor>().ToArray());
 
         return command.Invoke(args);
     }
+    
+    private async void StartWorkerMethod()
+    {
+        Worker.Start();
+        Console.BackgroundColor = ConsoleColor.Cyan;
+        await WorkerRun.WaitUntil(HasWorkerEnded, CancellationToken.None);
+    }
+
+    private bool HasWorkerEnded() => Worker.EndDate == DateTime.Now;
 }

@@ -14,6 +14,7 @@ public interface ITaskWorkerMethod
     void Start();
     void End();
     void BreakStart();
+    void BreakStart(int timerLength);
     void BreakEnd();
 
 }
