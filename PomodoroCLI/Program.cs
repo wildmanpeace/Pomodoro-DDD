@@ -17,7 +17,7 @@ static class Program
 
         ISettings settings = config.GetRequiredSection("PomodoroSettings").Get<PomodoroSettings>();
 
-        ITaskWorkerMethod worker = new WorkerMethod.Pomodoro(settings.TimerLength, settings.ShortBreak, settings.LongBreak);
+        ITaskWorkerMethod worker = new WorkerMethod.Pomodoro(settings);
         
         IHost host = Host.CreateDefaultBuilder().ConfigureServices(
             (_, services) =>

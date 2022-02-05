@@ -32,13 +32,9 @@ public class Commander
             new Break(Settings, Worker).Create()
         };
         
-        command.SetHandler<int, int, bool, int>(( timerLength, breakTimer, longBreak, longBreakTimer) =>
+        command.SetHandler<int>(( timerLength) =>
         {
             Settings.TimerLength = timerLength;
-            Settings.ShortBreak = breakTimer;
-            Settings.LongBreak = longBreakTimer;
-
-            Worker.IsLongBreak = longBreak;
             
             StartWorkerMethod();
 
@@ -52,6 +48,7 @@ public class Commander
         Worker.Start();
         Console.BackgroundColor = ConsoleColor.Cyan;
         await WorkerRun.WaitUntil(HasWorkerEnded, CancellationToken.None);
+        ConsoleExtension.ConsoleColorPulse(ConsoleColor.Blue, ConsoleColor.Gray);
     }
 
     private bool HasWorkerEnded() => Worker.EndDate == DateTime.Now;

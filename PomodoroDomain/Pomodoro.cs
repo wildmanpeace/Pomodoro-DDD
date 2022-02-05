@@ -35,29 +35,19 @@ public class Pomodoro : ITaskWorkerMethod, ISettings
         Strikes = new List<IStrike>();
     }
 
-    public Pomodoro(int pomodoroLength, int shortBreakLength, int longBreakLength)
-    {
-        ID = Guid.NewGuid();
-        Settings.TimerLength = pomodoroLength;
-        Settings.ShortBreak = shortBreakLength;
-        Settings.LongBreak = longBreakLength;
-        Strikes = new List<IStrike>();
-    }
-    
-    public Pomodoro(int pomodoroLength, int shortBreakLength, int longBreakLength, bool isLongBreak)
-    {
-        ID = Guid.NewGuid();
-        Settings.TimerLength = pomodoroLength;
-        Settings.ShortBreak = shortBreakLength;
-        Settings.LongBreak = longBreakLength;
-        Strikes = new List<IStrike>();
-        IsLongBreak = isLongBreak;
-    }
-
     public Pomodoro(ISettings settings)
     {
         ID = Guid.NewGuid();
         Settings = settings;
+        Strikes = new List<IStrike>();
+    }
+    
+    public Pomodoro(ISettings settings, bool isLongBreak)
+    {
+        ID = Guid.NewGuid();
+        Settings = settings;
+        Strikes = new List<IStrike>();
+        IsLongBreak = isLongBreak;
     }
 
     private DateTime SetEndBreakTime()

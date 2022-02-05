@@ -20,7 +20,8 @@ public class JsonWriter : IFileWriter
         {
             throw new InvalidOperationException("File either does not exist or is not a JSON file");
         }
-        config[key] = value;
+
+        if (key != null) config[key] = value;
 
         var updatedConfig = JsonSerializer.Serialize(config, new JsonSerializerOptions {WriteIndented = true});
 
