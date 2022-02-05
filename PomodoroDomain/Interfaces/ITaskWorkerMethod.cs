@@ -10,6 +10,8 @@ public interface ITaskWorkerMethod
     bool IsLongBreak { get; set; }
     bool IsActive { get; set; }
     
+    ISettings Settings { get; set; }
+    
 
     void Start();
     void End();
